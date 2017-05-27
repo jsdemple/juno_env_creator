@@ -1,6 +1,6 @@
-#############################################\n
-#####Jupyter Notebook Ipykernel Creator######\n
-#############################################\n
+#############################################
+#####Jupyter Notebook Ipykernel Creator######
+#############################################
 
 Create a new Conda environment and make it available in your Jupyter Notebooks with one command.
 
