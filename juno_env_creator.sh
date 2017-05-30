@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 # create new conda environment
 # name is given as first argument
