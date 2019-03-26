@@ -32,14 +32,14 @@ echo Ipykernel $NAME created
 read -e -p "Do you want to make the kernel available for all users? [Y/n] " YN
 if [[ $YN == "Y" || $YN == "y" || $YN == "" ]]
 then
-  python -m ipykernel install --user --name $NAME --display-name "$NAME"
+  python -m ipykernel install --name $NAME --display-name "$NAME"
   echo Ipykernel $NAME created
   echo CONDA ENVIRONMENT CREATED AND AVAILABLE SYSTEMWIDE IN JUPYTER AS $NAME
 fi
 
 if [[ $YN == "N" || $YN == "n" ]]
 then
-  python -m ipykernel install --name $NAME --display-name "$NAME"
+  python -m ipykernel install --user --name $NAME --display-name "$NAME"
   echo Ipykernel $NAME created
   echo CONDA ENVIRONMENT CREATED AND AVAILABLE FOR YOUR USER ONLY IN JUPYTER AS $NAME
 fi
