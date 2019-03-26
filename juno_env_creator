@@ -1,0 +1,46 @@
+#/bin/bash
+set -e
+
+echo CREATING A CONDA ENVIRONMENT AND MATCHING IPYKERNEL AVAILABLE IN JUPYTER
+read -s -p "What name would you like to give your environment/kernel: " NAME
+echo $NAME
+
+# create new conda environment
+read -e -p "Would you like to specify a version of Python to use? [Y/n] " YN
+
+if [[ $YN == "Y" || $YN == "y" || $YN == "" ]]
+then
+  read -e -p "Specify Python version to use (e.g. 2.7): " VERSION
+  echo $VERSION
+  conda create -y -n $NAME python=$VERSION
+fi
+
+if [[ $YN == "N" || $YN == "n" ]]
+then
+  conda create -y -n $NAME
+fi
+echo Conda environment $NAME created
+
+# activate the new environment and install ipykernel
+source activate $NAME
+conda install -y pip
+pip install --upgrade pip
+pip install ipykernel
+echo Ipykernel $NAME created
+
+# make your new environment available as an ipykernel in jupyter
+read -e -p "Do you want to make the kernel available for all users? [Y/n] " YN
+if [[ $YN == "Y" || $YN == "y" || $YN == "" ]]
+then
+  python -m ipykernel install --user --name $NAME --display-name "$NAME"
+  echo Ipykernel $NAME created
+  echo CONDA ENVIRONMENT CREATED AND AVAILABLE SYSTEMWIDE IN JUPYTER AS $NAME
+fi
+
+if [[ $YN == "N" || $YN == "n" ]]
+then
+  python -m ipykernel install --name $NAME --display-name "$NAME"
+  echo Ipykernel $NAME created
+  echo CONDA ENVIRONMENT CREATED AND AVAILABLE FOR YOUR USER ONLY IN JUPYTER AS $NAME
+fi
+
